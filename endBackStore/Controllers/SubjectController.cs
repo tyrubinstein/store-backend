@@ -22,6 +22,7 @@ namespace endBackStore.Controllers
         {
             if (true)
             {
+                if(false)
             return ss.GetListOfSubjects();
 
             }
