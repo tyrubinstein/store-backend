@@ -20,12 +20,9 @@ namespace endBackStore.Controllers
         [HttpGet]
         public List<SubjectForListCTP> ListOfSubjects()
         {
-            if (true)
-            {
-                if(false)
             return ss.GetListOfSubjects();
 
-            }
+          
 
         }
         //[HttpGet]
