@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="storesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Advertisements">
+          <Key>
+            <PropertyRef Name="AdvertisementID" />
+          </Key>
+          <Property Name="AdvertisementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pictureURL" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KindID" Type="int" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+          <Property Name="DescribeAd" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="AdvertisementsKinds">
+          <Key>
+            <PropertyRef Name="KindID" />
+          </Key>
+          <Property Name="KindID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="20" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="Clothes">
+          <Key>
+            <PropertyRef Name="ClothID" />
+          </Key>
+          <Property Name="ClothID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClothCompaniCod" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="YearOfProduction" Type="int" Nullable="false" />
+          <Property Name="Describe" Type="varchar" MaxLength="20" />
+          <Property Name="pictureURL" Type="varchar" MaxLength="50" />
+          <Property Name="Color" Type="varchar" MaxLength="20" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="Companys">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="20" />
+          <Property Name="Address" Type="varchar" MaxLength="40" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="ContactMan" Type="varchar" MaxLength="20" />
+          <Property Name="ContactManCell" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="StoreID" />
+            <PropertyRef Name="ClothID" />
+          </Key>
+          <Property Name="StoreID" Type="int" Nullable="false" />
+          <Property Name="ClothID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreID" Type="int" />
+          <Property Name="ContentText" Type="varchar" MaxLength="600" />
+          <Property Name="DatetimeOfWriting" Type="datetime" />
+          <Property Name="SubjectID" Type="int" />
+        </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ManagerName" Type="varchar" MaxLength="20" />
+          <Property Name="Cell" Type="varchar" MaxLength="10" />
+          <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PasswordUser" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="StoreID" Type="int" />
+          <Property Name="DatetimeOfWriting" Type="datetime" />
+          <Property Name="IfWantUpdate" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Advertise__Compa__1ED998B2">
+          <End Role="Companys" Type="Self.Companys" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companys">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Advertise__KindI__1DE57479">
+          <End Role="AdvertisementsKinds" Type="Self.AdvertisementsKinds" Multiplicity="0..1" />
+          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdvertisementsKinds">
+              <PropertyRef Name="KindID" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="KindID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clothes__Company__21B6055D">
+          <End Role="Companys" Type="Self.Companys" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companys">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__Cloth__25869641">
+          <End Role="Clothes" Type="Self.Clothes" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clothes">
+              <PropertyRef Name="ClothID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ClothID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__Store__24927208">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Posts__StoreID__164452B1">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Posts__SubjectID__173876EA">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__StoreI__1273C1CD">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="storesModelStoreContainer">
+          <EntitySet Name="Advertisements" EntityType="Self.Advertisements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdvertisementsKinds" EntityType="Self.AdvertisementsKinds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companys" EntityType="Self.Companys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Advertise__Compa__1ED998B2" Association="Self.FK__Advertise__Compa__1ED998B2">
+            <End Role="Companys" EntitySet="Companys" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Advertise__KindI__1DE57479" Association="Self.FK__Advertise__KindI__1DE57479">
+            <End Role="AdvertisementsKinds" EntitySet="AdvertisementsKinds" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clothes__Company__21B6055D" Association="Self.FK__Clothes__Company__21B6055D">
+            <End Role="Companys" EntitySet="Companys" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__Cloth__25869641" Association="Self.FK__Inventory__Cloth__25869641">
+            <End Role="Clothes" EntitySet="Clothes" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__Store__24927208" Association="Self.FK__Inventory__Store__24927208">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Posts__StoreID__164452B1" Association="Self.FK__Posts__StoreID__164452B1">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Posts__SubjectID__173876EA" Association="Self.FK__Posts__SubjectID__173876EA">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__StoreI__1273C1CD" Association="Self.FK__Subjects__StoreI__1273C1CD">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="storesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Advertisement">
+          <Key>
+            <PropertyRef Name="AdvertisementID" />
+          </Key>
+          <Property Name="AdvertisementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pictureURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KindID" Type="Int32" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <Property Name="DescribeAd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK__Advertise__Compa__1ED998B2" FromRole="Advertisements" ToRole="Companys" />
+          <NavigationProperty Name="AdvertisementsKind" Relationship="Self.FK__Advertise__KindI__1DE57479" FromRole="Advertisements" ToRole="AdvertisementsKinds" />
+        </EntityType>
+        <EntityType Name="AdvertisementsKind">
+          <Key>
+            <PropertyRef Name="KindID" />
+          </Key>
+          <Property Name="KindID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KindName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK__Advertise__KindI__1DE57479" FromRole="AdvertisementsKinds" ToRole="Advertisements" />
+        </EntityType>
+        <EntityType Name="Cloth">
+          <Key>
+            <PropertyRef Name="ClothID" />
+          </Key>
+          <Property Name="ClothID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClothCompaniCod" Type="Int32" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="YearOfProduction" Type="Int32" Nullable="false" />
+          <Property Name="Describe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="pictureURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="Company" Relationship="Self.FK__Clothes__Company__21B6055D" FromRole="Clothes" ToRole="Companys" />
+          <NavigationProperty Name="Stores" Relationship="Self.Inventory" FromRole="Clothes" ToRole="Stores" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ContactMan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactManCell" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Advertisements" Relationship="Self.FK__Advertise__Compa__1ED998B2" FromRole="Companys" ToRole="Advertisements" />
+          <NavigationProperty Name="Clothes" Relationship="Self.FK__Clothes__Company__21B6055D" FromRole="Companys" ToRole="Clothes" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="ContentText" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="DatetimeOfWriting" Type="DateTime" Precision="3" />
+          <Property Name="SubjectID" Type="Int32" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Posts__StoreID__164452B1" FromRole="Posts" ToRole="Stores" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Posts__SubjectID__173876EA" FromRole="Posts" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ManagerName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Cell" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordUser" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__StoreID__164452B1" FromRole="Stores" ToRole="Posts" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK__Subjects__StoreI__1273C1CD" FromRole="Stores" ToRole="Subjects" />
+          <NavigationProperty Name="Clothes" Relationship="Self.Inventory" FromRole="Stores" ToRole="Clothes" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="SubjectID" />
+          </Key>
+          <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="DatetimeOfWriting" Type="DateTime" Precision="3" />
+          <Property Name="IfWantUpdate" Type="Boolean" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__SubjectID__173876EA" FromRole="Subjects" ToRole="Posts" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Subjects__StoreI__1273C1CD" FromRole="Subjects" ToRole="Stores" />
+        </EntityType>
+        <Association Name="FK__Advertise__Compa__1ED998B2">
+          <End Role="Companys" Type="Self.Company" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companys">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Advertise__KindI__1DE57479">
+          <End Role="AdvertisementsKinds" Type="Self.AdvertisementsKind" Multiplicity="0..1" />
+          <End Role="Advertisements" Type="Self.Advertisement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdvertisementsKinds">
+              <PropertyRef Name="KindID" />
+            </Principal>
+            <Dependent Role="Advertisements">
+              <PropertyRef Name="KindID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clothes__Company__21B6055D">
+          <End Role="Companys" Type="Self.Company" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Cloth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companys">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Clothes">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Posts__StoreID__164452B1">
+          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Posts__SubjectID__173876EA">
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="SubjectID" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subjects__StoreI__1273C1CD">
+          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Inventory">
+          <End Role="Clothes" Type="Self.Cloth" Multiplicity="*" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="storesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Advertisements" EntityType="Self.Advertisement" />
+          <EntitySet Name="AdvertisementsKinds" EntityType="Self.AdvertisementsKind" />
+          <EntitySet Name="Clothes" EntityType="Self.Cloth" />
+          <EntitySet Name="Companys" EntityType="Self.Company" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <EntitySet Name="Stores" EntityType="Self.Store" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <AssociationSet Name="FK__Advertise__Compa__1ED998B2" Association="Self.FK__Advertise__Compa__1ED998B2">
+            <End Role="Companys" EntitySet="Companys" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Advertise__KindI__1DE57479" Association="Self.FK__Advertise__KindI__1DE57479">
+            <End Role="AdvertisementsKinds" EntitySet="AdvertisementsKinds" />
+            <End Role="Advertisements" EntitySet="Advertisements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clothes__Company__21B6055D" Association="Self.FK__Clothes__Company__21B6055D">
+            <End Role="Companys" EntitySet="Companys" />
+            <End Role="Clothes" EntitySet="Clothes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Posts__StoreID__164452B1" Association="Self.FK__Posts__StoreID__164452B1">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Posts__SubjectID__173876EA" Association="Self.FK__Posts__SubjectID__173876EA">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subjects__StoreI__1273C1CD" Association="Self.FK__Subjects__StoreI__1273C1CD">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="Inventory" Association="Self.Inventory">
+            <End Role="Clothes" EntitySet="Clothes" />
+            <End Role="Stores" EntitySet="Stores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="storesModelStoreContainer" CdmEntityContainer="storesEntities">
+          <EntitySetMapping Name="Advertisements">
+            <EntityTypeMapping TypeName="storesModel.Advertisement">
+              <MappingFragment StoreEntitySet="Advertisements">
+                <ScalarProperty Name="AdvertisementID" ColumnName="AdvertisementID" />
+                <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
+                <ScalarProperty Name="KindID" ColumnName="KindID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="DescribeAd" ColumnName="DescribeAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvertisementsKinds">
+            <EntityTypeMapping TypeName="storesModel.AdvertisementsKind">
+              <MappingFragment StoreEntitySet="AdvertisementsKinds">
+                <ScalarProperty Name="KindID" ColumnName="KindID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clothes">
+            <EntityTypeMapping TypeName="storesModel.Cloth">
+              <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="ClothID" ColumnName="ClothID" />
+                <ScalarProperty Name="ClothCompaniCod" ColumnName="ClothCompaniCod" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="YearOfProduction" ColumnName="YearOfProduction" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companys">
+            <EntityTypeMapping TypeName="storesModel.Company">
+              <MappingFragment StoreEntitySet="Companys">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactMan" ColumnName="ContactMan" />
+                <ScalarProperty Name="ContactManCell" ColumnName="ContactManCell" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="storesModel.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="DatetimeOfWriting" ColumnName="DatetimeOfWriting" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="storesModel.Store">
+              <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="Cell" ColumnName="Cell" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordUser" ColumnName="PasswordUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="storesModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="DatetimeOfWriting" ColumnName="DatetimeOfWriting" />
+                <ScalarProperty Name="IfWantUpdate" ColumnName="IfWantUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Inventory" TypeName="storesModel.Inventory" StoreEntitySet="Inventory">
+            <EndProperty Name="Clothes">
+              <ScalarProperty Name="ClothID" ColumnName="ClothID" />
+            </EndProperty>
+            <EndProperty Name="Stores">
+              <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
