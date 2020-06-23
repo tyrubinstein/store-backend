@@ -12,22 +12,16 @@ namespace DALl
     using System;
     using System.Collections.Generic;
     
-    public partial class Subject
+    public partial class Posts
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Subject()
-        {
-            this.Posts = new HashSet<Post>();
-        }
-    
-        public int SubjectID { get; set; }
-        public string SubjectName { get; set; }
+        public int PostID { get; set; }
         public Nullable<int> StoreID { get; set; }
+        public string ContentText { get; set; }
         public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
-        public Nullable<bool> IfWantUpdate { get; set; }
+        public string AnswerTo { get; set; }
+        public Nullable<int> SubjectID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Posts { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual Stores Stores { get; set; }
+        public virtual Subjects Subjects { get; set; }
     }
 }

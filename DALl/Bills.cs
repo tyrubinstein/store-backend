@@ -12,15 +12,13 @@ namespace DALl
     using System;
     using System.Collections.Generic;
     
-    public partial class Advertisement
+    public partial class Bills
     {
-        public int AdvertisementID { get; set; }
-        public string pictureURL { get; set; }
-        public Nullable<int> KindID { get; set; }
-        public int CompanyID { get; set; }
-        public string DescribeAd { get; set; }
+        public int BillID { get; set; }
+        public Nullable<int> StoreID { get; set; }
+        public string BillPath { get; set; }
+        public Nullable<System.DateTime> BilDate { get; set; }
     
-        public virtual Company Company { get; set; }
-        public virtual AdvertisementsKind AdvertisementsKind { get; set; }
+        public virtual Stores Stores { get; set; }
     }
 }

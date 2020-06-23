@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class PostCTP
+    class PostDTO
     {
         public int PostID { get; set; }
         public int StoreID { get; set; }

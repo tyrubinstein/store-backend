@@ -12,30 +12,25 @@ namespace DALl
     using System;
     using System.Collections.Generic;
     
-    public partial class Store
+    public partial class Companys
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Store()
+        public Companys()
         {
-            this.Posts = new HashSet<Post>();
-            this.Subjects = new HashSet<Subject>();
-            this.Clothes = new HashSet<Cloth>();
+            this.Advertisements = new HashSet<Advertisements>();
+            this.Clothes = new HashSet<Clothes>();
         }
     
-        public int StoreID { get; set; }
-        public string StoreName { get; set; }
+        public int CompanyID { get; set; }
+        public string CompanyName { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }
-        public string ManagerName { get; set; }
-        public string Cell { get; set; }
         public string Email { get; set; }
-        public string PasswordUser { get; set; }
+        public string ContactMan { get; set; }
+        public string ContactManCell { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Advertisements> Advertisements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject> Subjects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cloth> Clothes { get; set; }
+        public virtual ICollection<Clothes> Clothes { get; set; }
     }
 }

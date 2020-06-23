@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace endBackStore.Controllers
+namespace APIendBackStore.Controllers
 {
     public class HomeController : Controller
     {

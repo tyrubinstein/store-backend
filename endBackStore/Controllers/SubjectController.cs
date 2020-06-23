@@ -9,28 +9,42 @@ using System.Web.Http.Cors;
 
 using BLL;
 
-namespace endBackStore.Controllers
+namespace APIendBackStore.Controllers
 {
 
     [Route("api/Subject")]
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class SubjectController : ApiController
     {
-        SubjectService ss;
-        [HttpGet]
-        public List<SubjectForListCTP> ListOfSubjects()
-        {
-            return ss.GetListOfSubjects();
+        private SubjectService Ics;
+        //public SubjectController()
+        //{
+        //    Ics = new IsubjectService();
+        //}
 
-          
+        public SubjectController(SubjectService ISubjectService)
+        {
+            this.Ics = ISubjectService;
+        }
+        [HttpGet]
+        public List<SubjectForListDTO> ListOfSubjects()
+        {
+
+            return Ics.GetListOfSubjects();
 
         }
-        //[HttpGet]
+        public SubjectDTO GetSubjectByID(int ID)
+        {
+            return Ics.GetSubjectByID(ID);
+                }
 
-        //public List<SubjectForListCTP> ListOfSubjectsyyy()
+        //public List<SubjectForListDTO> ListOfSubjectsyyy()
         //{
-        //    return Is.ListOfSubjects();
+        //    return Ics.GetListOfSubjects();
 
         //}
+
+
     }
 }
+

@@ -12,15 +12,15 @@ namespace DALl
     using System;
     using System.Collections.Generic;
     
-    public partial class Post
+    public partial class Advertisements
     {
-        public int PostID { get; set; }
-        public Nullable<int> StoreID { get; set; }
-        public string ContentText { get; set; }
-        public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
-        public Nullable<int> SubjectID { get; set; }
+        public int AdvertisementID { get; set; }
+        public string pictureURL { get; set; }
+        public Nullable<int> KindID { get; set; }
+        public int CompanyID { get; set; }
+        public string DescribeAd { get; set; }
     
-        public virtual Store Store { get; set; }
-        public virtual Subject Subject { get; set; }
+        public virtual Companys Companys { get; set; }
+        public virtual AdvertisementsKinds AdvertisementsKinds { get; set; }
     }
 }

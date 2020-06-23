@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class InventoryCTP
+    class InventoryDTO
     {
         public int StoreID { get; set; }
         public int ClothID { get; set; }

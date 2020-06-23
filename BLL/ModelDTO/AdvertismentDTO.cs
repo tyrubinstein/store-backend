@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class AdvertismentCTP
+    class AdvertismentDTO
     {
         public int AdvertisementID { get; set; }
         public string pictureURL { get; set; }

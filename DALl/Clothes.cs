@@ -12,25 +12,25 @@ namespace DALl
     using System;
     using System.Collections.Generic;
     
-    public partial class Company
+    public partial class Clothes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Company()
+        public Clothes()
         {
-            this.Advertisements = new HashSet<Advertisement>();
-            this.Clothes = new HashSet<Cloth>();
+            this.Stores = new HashSet<Stores>();
         }
     
-        public int CompanyID { get; set; }
-        public string CompanyName { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string ContactMan { get; set; }
-        public string ContactManCell { get; set; }
+        public int ClothID { get; set; }
+        public int ClothCompaniCod { get; set; }
+        public int CompanyId { get; set; }
+        public int YearOfProduction { get; set; }
+        public string Describe { get; set; }
+        public string pictureURL { get; set; }
+        public string Color { get; set; }
+        public Nullable<int> Price { get; set; }
     
+        public virtual Companys Companys { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Advertisement> Advertisements { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cloth> Clothes { get; set; }
+        public virtual ICollection<Stores> Stores { get; set; }
     }
 }

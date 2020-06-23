@@ -12,19 +12,22 @@ namespace DALl
     using System;
     using System.Collections.Generic;
     
-    public partial class AdvertisementsKind
+    public partial class Subjects
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AdvertisementsKind()
+        public Subjects()
         {
-            this.Advertisements = new HashSet<Advertisement>();
+            this.Posts = new HashSet<Posts>();
         }
     
-        public int KindID { get; set; }
-        public string KindName { get; set; }
-        public Nullable<int> Price { get; set; }
+        public int SubjectID { get; set; }
+        public string SubjectName { get; set; }
+        public Nullable<int> StoreID { get; set; }
+        public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
+        public Nullable<bool> IfWantUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Advertisement> Advertisements { get; set; }
+        public virtual ICollection<Posts> Posts { get; set; }
+        public virtual Stores Stores { get; set; }
     }
 }

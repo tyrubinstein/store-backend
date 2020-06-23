@@ -7,19 +7,19 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace endBackStore.Controllers
+namespace APIendBackStore.Controllers
 {
     [Route("api/Post")]
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class PostController : ApiController
     {
         //[HttpGet]
-        //public List<PostCTP> GetListOfPostByIdSubject (int idOfSubject)
+        //public List<PostDTO> GetListOfPostByIdSubject (int idOfSubject)
         //{
         //    return Is.GetListOfPostByIdSubject();
 
         //}
-        //public List<PostCTP> GetTheCodOfSubjectOftheLatestPost(int idOfSubject)
+        //public List<PostDTO> GetTheCodOfSubjectOftheLatestPost(int idOfSubject)
 
     }
 }

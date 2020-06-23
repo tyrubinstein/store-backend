@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace endBackStore.Controllers
+namespace APIendBackStore.Controllers
 {
     public class LoginController : ApiController
     {

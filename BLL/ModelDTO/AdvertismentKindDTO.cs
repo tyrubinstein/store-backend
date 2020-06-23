@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class AdvertismentKindCTP
+    class AdvertismentKindDTO
     {
         public int KindID { get; set; }
         public string KindName { get; set; }
