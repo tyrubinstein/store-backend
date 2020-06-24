@@ -12,21 +12,23 @@ using BLL;
 namespace APIendBackStore.Controllers
 {
 
-    [Route("api/Subject")]
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [RoutePrefix("api")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SubjectController : ApiController
     {
-        private SubjectService Ics;
+        private SubjectService Ics=new SubjectService();
         //public SubjectController()
         //{
         //    Ics = new IsubjectService();
         //}
 
-        public SubjectController(SubjectService ISubjectService)
-        {
-            this.Ics = ISubjectService;
-        }
+        //public SubjectController(SubjectService ISubjectService)
+        //{
+        //    this.Ics = ISubjectService;
+        //}
         [HttpGet]
+        [Route("Subject/AllSubject")]
+
         public List<SubjectForListDTO> ListOfSubjects()
         {
 

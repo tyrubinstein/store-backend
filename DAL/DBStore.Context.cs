@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DALl
+namespace DAL
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class storesEntities1 : DbContext
+    public partial class storesEntities : DbContext
     {
-        public storesEntities1()
-            : base("name=storesEntities1")
+        public storesEntities()
+            : base("name=storesEntities")
         {
         }
     
@@ -25,13 +25,13 @@ namespace DALl
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Advertisements> Advertisements { get; set; }
-        public virtual DbSet<AdvertisementsKinds> AdvertisementsKinds { get; set; }
-        public virtual DbSet<Bills> Bills { get; set; }
-        public virtual DbSet<Clothes> Clothes { get; set; }
-        public virtual DbSet<Companys> Companys { get; set; }
-        public virtual DbSet<Posts> Posts { get; set; }
-        public virtual DbSet<Stores> Stores { get; set; }
-        public virtual DbSet<Subjects> Subjects { get; set; }
+        public virtual DbSet<Advertisement> Advertisements { get; set; }
+        public virtual DbSet<AdvertisementsKind> AdvertisementsKinds { get; set; }
+        public virtual DbSet<Bill> Bills { get; set; }
+        public virtual DbSet<Cloth> Clothes { get; set; }
+        public virtual DbSet<Company> Companys { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
     }
 }

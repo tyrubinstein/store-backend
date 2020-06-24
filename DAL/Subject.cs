@@ -7,24 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DALl
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AdvertisementsKinds
+    public partial class Subject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AdvertisementsKinds()
+        public Subject()
         {
-            this.Advertisements = new HashSet<Advertisements>();
+            this.Posts = new HashSet<Post>();
         }
     
-        public int KindID { get; set; }
-        public string KindName { get; set; }
-        public Nullable<int> Price { get; set; }
+        public int SubjectID { get; set; }
+        public string SubjectName { get; set; }
+        public Nullable<int> StoreID { get; set; }
+        public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
+        public Nullable<bool> IfWantUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Advertisements> Advertisements { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual Store Store { get; set; }
     }
 }

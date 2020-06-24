@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1304c5a670094116991cf193774f2eb3" Name="Diagram1">
-        <EntityTypeShape EntityType="storesModel.Advertisements" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.AdvertisementsKinds" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.Bills" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.Clothes" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.Companys" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.Posts" Width="1.5" PointX="9.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.Stores" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="storesModel.Subjects" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
+      <Diagram DiagramId="de512bea6b734fe08f0902b45fc6b5ef" Name="Diagram1">
+        <EntityTypeShape EntityType="storesModel.Advertisement" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.AdvertisementsKind" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.Bill" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.Cloth" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.Company" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.Post" Width="1.5" PointX="9.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.Store" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="storesModel.Subject" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
         <AssociationConnector Association="storesModel.FK__Advertise__Compa__45F365D3" ManuallyRouted="false" />
         <AssociationConnector Association="storesModel.FK__Advertise__KindI__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="storesModel.FK__Bills__StoreID__4F7CD00D" ManuallyRouted="false" />

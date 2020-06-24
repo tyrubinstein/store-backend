@@ -1,9 +1,8 @@
 ﻿using BLL;
-using DALl;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace ASPnetStore.Services
 {
@@ -18,7 +17,7 @@ namespace ASPnetStore.Services
     public class SubjectService : IsubjectService
 
     {
-        storesEntities1 db;
+        storesEntities db;
         
 
 
@@ -27,8 +26,9 @@ namespace ASPnetStore.Services
             try
             {
                 //מחקתי הצהרת משתנה
-                using (db = new storesEntities1())
+                using (db = new storesEntities())
                 {
+                    Subject l = db.Subjects.Last();
                     return db.Subjects.
                    Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
                    (sub, st) => new { sub, st })

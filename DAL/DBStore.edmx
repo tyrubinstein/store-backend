@@ -28,9 +28,9 @@
             <PropertyRef Name="BillID" />
           </Key>
           <Property Name="BillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StoreID" Type="int" />
-          <Property Name="BillPath" Type="varchar" MaxLength="100" />
-          <Property Name="BilDate" Type="datetime" />
+          <Property Name="StoreID" Type="int" Nullable="false" />
+          <Property Name="BillPath" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BilDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Clothes">
           <Key>
@@ -124,7 +124,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Bills__StoreID__4F7CD00D">
-          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
           <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
@@ -259,7 +259,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Advertisements">
+        <EntityType Name="Advertisement">
           <Key>
             <PropertyRef Name="AdvertisementID" />
           </Key>
@@ -268,10 +268,10 @@
           <Property Name="KindID" Type="Int32" />
           <Property Name="CompanyID" Type="Int32" Nullable="false" />
           <Property Name="DescribeAd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Companys" Relationship="Self.FK__Advertise__Compa__45F365D3" FromRole="Advertisements" ToRole="Companys" />
-          <NavigationProperty Name="AdvertisementsKinds" Relationship="Self.FK__Advertise__KindI__44FF419A" FromRole="Advertisements" ToRole="AdvertisementsKinds" />
+          <NavigationProperty Name="Company" Relationship="Self.FK__Advertise__Compa__45F365D3" FromRole="Advertisements" ToRole="Companys" />
+          <NavigationProperty Name="AdvertisementsKind" Relationship="Self.FK__Advertise__KindI__44FF419A" FromRole="Advertisements" ToRole="AdvertisementsKinds" />
         </EntityType>
-        <EntityType Name="AdvertisementsKinds">
+        <EntityType Name="AdvertisementsKind">
           <Key>
             <PropertyRef Name="KindID" />
           </Key>
@@ -280,17 +280,17 @@
           <Property Name="Price" Type="Int32" />
           <NavigationProperty Name="Advertisements" Relationship="Self.FK__Advertise__KindI__44FF419A" FromRole="AdvertisementsKinds" ToRole="Advertisements" />
         </EntityType>
-        <EntityType Name="Bills">
+        <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="BillID" />
           </Key>
           <Property Name="BillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StoreID" Type="Int32" />
-          <Property Name="BillPath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="BilDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Bills__StoreID__4F7CD00D" FromRole="Bills" ToRole="Stores" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="BillPath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BilDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Bills__StoreID__4F7CD00D" FromRole="Bills" ToRole="Stores" />
         </EntityType>
-        <EntityType Name="Clothes">
+        <EntityType Name="Cloth">
           <Key>
             <PropertyRef Name="ClothID" />
           </Key>
@@ -302,10 +302,10 @@
           <Property Name="pictureURL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Int32" />
-          <NavigationProperty Name="Companys" Relationship="Self.FK__Clothes__Company__48CFD27E" FromRole="Clothes" ToRole="Companys" />
+          <NavigationProperty Name="Company" Relationship="Self.FK__Clothes__Company__48CFD27E" FromRole="Clothes" ToRole="Companys" />
           <NavigationProperty Name="Stores" Relationship="Self.Inventory" FromRole="Clothes" ToRole="Stores" />
         </EntityType>
-        <EntityType Name="Companys">
+        <EntityType Name="Company">
           <Key>
             <PropertyRef Name="CompanyID" />
           </Key>
@@ -318,7 +318,7 @@
           <NavigationProperty Name="Advertisements" Relationship="Self.FK__Advertise__Compa__45F365D3" FromRole="Companys" ToRole="Advertisements" />
           <NavigationProperty Name="Clothes" Relationship="Self.FK__Clothes__Company__48CFD27E" FromRole="Companys" ToRole="Clothes" />
         </EntityType>
-        <EntityType Name="Posts">
+        <EntityType Name="Post">
           <Key>
             <PropertyRef Name="PostID" />
           </Key>
@@ -328,10 +328,10 @@
           <Property Name="DatetimeOfWriting" Type="DateTime" Precision="3" />
           <Property Name="AnswerTo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="SubjectID" Type="Int32" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Posts__StoreID__3D5E1FD2" FromRole="Posts" ToRole="Stores" />
-          <NavigationProperty Name="Subjects" Relationship="Self.FK__Posts__SubjectID__3E52440B" FromRole="Posts" ToRole="Subjects" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Posts__StoreID__3D5E1FD2" FromRole="Posts" ToRole="Stores" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Posts__SubjectID__3E52440B" FromRole="Posts" ToRole="Subjects" />
         </EntityType>
-        <EntityType Name="Stores">
+        <EntityType Name="Store">
           <Key>
             <PropertyRef Name="StoreID" />
           </Key>
@@ -349,7 +349,7 @@
           <NavigationProperty Name="Subjects" Relationship="Self.FK__Subjects__StoreI__398D8EEE" FromRole="Stores" ToRole="Subjects" />
           <NavigationProperty Name="Clothes" Relationship="Self.Inventory" FromRole="Stores" ToRole="Clothes" />
         </EntityType>
-        <EntityType Name="Subjects">
+        <EntityType Name="Subject">
           <Key>
             <PropertyRef Name="SubjectID" />
           </Key>
@@ -359,11 +359,11 @@
           <Property Name="DatetimeOfWriting" Type="DateTime" Precision="3" />
           <Property Name="IfWantUpdate" Type="Boolean" />
           <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__SubjectID__3E52440B" FromRole="Subjects" ToRole="Posts" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Subjects__StoreI__398D8EEE" FromRole="Subjects" ToRole="Stores" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Subjects__StoreI__398D8EEE" FromRole="Subjects" ToRole="Stores" />
         </EntityType>
         <Association Name="FK__Advertise__Compa__45F365D3">
-          <End Role="Companys" Type="Self.Companys" Multiplicity="1" />
-          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <End Role="Companys" Type="Self.Company" Multiplicity="1" />
+          <End Role="Advertisements" Type="Self.Advertisement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Companys">
               <PropertyRef Name="CompanyID" />
@@ -374,8 +374,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Advertise__KindI__44FF419A">
-          <End Role="AdvertisementsKinds" Type="Self.AdvertisementsKinds" Multiplicity="0..1" />
-          <End Role="Advertisements" Type="Self.Advertisements" Multiplicity="*" />
+          <End Role="AdvertisementsKinds" Type="Self.AdvertisementsKind" Multiplicity="0..1" />
+          <End Role="Advertisements" Type="Self.Advertisement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AdvertisementsKinds">
               <PropertyRef Name="KindID" />
@@ -386,8 +386,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Bills__StoreID__4F7CD00D">
-          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="1" />
+          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
               <PropertyRef Name="StoreID" />
@@ -398,8 +398,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Clothes__Company__48CFD27E">
-          <End Role="Companys" Type="Self.Companys" Multiplicity="1" />
-          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
+          <End Role="Companys" Type="Self.Company" Multiplicity="1" />
+          <End Role="Clothes" Type="Self.Cloth" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Companys">
               <PropertyRef Name="CompanyID" />
@@ -410,8 +410,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Posts__StoreID__3D5E1FD2">
-          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
-          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
               <PropertyRef Name="StoreID" />
@@ -422,8 +422,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Posts__SubjectID__3E52440B">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subjects">
               <PropertyRef Name="SubjectID" />
@@ -434,8 +434,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Subjects__StoreI__398D8EEE">
-          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
               <PropertyRef Name="StoreID" />
@@ -446,18 +446,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Inventory">
-          <End Role="Clothes" Type="Self.Clothes" Multiplicity="*" />
-          <End Role="Stores" Type="Self.Stores" Multiplicity="*" />
+          <End Role="Clothes" Type="Self.Cloth" Multiplicity="*" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="storesEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Advertisements" EntityType="Self.Advertisements" />
-          <EntitySet Name="AdvertisementsKinds" EntityType="Self.AdvertisementsKinds" />
-          <EntitySet Name="Bills" EntityType="Self.Bills" />
-          <EntitySet Name="Clothes" EntityType="Self.Clothes" />
-          <EntitySet Name="Companys" EntityType="Self.Companys" />
-          <EntitySet Name="Posts" EntityType="Self.Posts" />
-          <EntitySet Name="Stores" EntityType="Self.Stores" />
-          <EntitySet Name="Subjects" EntityType="Self.Subjects" />
+        <EntityContainer Name="storesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Advertisements" EntityType="Self.Advertisement" />
+          <EntitySet Name="AdvertisementsKinds" EntityType="Self.AdvertisementsKind" />
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="Clothes" EntityType="Self.Cloth" />
+          <EntitySet Name="Companys" EntityType="Self.Company" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <EntitySet Name="Stores" EntityType="Self.Store" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
           <AssociationSet Name="FK__Advertise__Compa__45F365D3" Association="Self.FK__Advertise__Compa__45F365D3">
             <End Role="Companys" EntitySet="Companys" />
             <End Role="Advertisements" EntitySet="Advertisements" />
@@ -496,9 +496,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="storesModelStoreContainer" CdmEntityContainer="storesEntities1">
+        <EntityContainerMapping StorageEntityContainer="storesModelStoreContainer" CdmEntityContainer="storesEntities">
           <EntitySetMapping Name="Advertisements">
-            <EntityTypeMapping TypeName="storesModel.Advertisements">
+            <EntityTypeMapping TypeName="storesModel.Advertisement">
               <MappingFragment StoreEntitySet="Advertisements">
                 <ScalarProperty Name="AdvertisementID" ColumnName="AdvertisementID" />
                 <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
@@ -509,7 +509,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AdvertisementsKinds">
-            <EntityTypeMapping TypeName="storesModel.AdvertisementsKinds">
+            <EntityTypeMapping TypeName="storesModel.AdvertisementsKind">
               <MappingFragment StoreEntitySet="AdvertisementsKinds">
                 <ScalarProperty Name="KindID" ColumnName="KindID" />
                 <ScalarProperty Name="KindName" ColumnName="KindName" />
@@ -518,7 +518,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Bills">
-            <EntityTypeMapping TypeName="storesModel.Bills">
+            <EntityTypeMapping TypeName="storesModel.Bill">
               <MappingFragment StoreEntitySet="Bills">
                 <ScalarProperty Name="BillID" ColumnName="BillID" />
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
@@ -528,7 +528,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clothes">
-            <EntityTypeMapping TypeName="storesModel.Clothes">
+            <EntityTypeMapping TypeName="storesModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
                 <ScalarProperty Name="ClothID" ColumnName="ClothID" />
                 <ScalarProperty Name="ClothCompaniCod" ColumnName="ClothCompaniCod" />
@@ -542,7 +542,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Companys">
-            <EntityTypeMapping TypeName="storesModel.Companys">
+            <EntityTypeMapping TypeName="storesModel.Company">
               <MappingFragment StoreEntitySet="Companys">
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -554,7 +554,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Posts">
-            <EntityTypeMapping TypeName="storesModel.Posts">
+            <EntityTypeMapping TypeName="storesModel.Post">
               <MappingFragment StoreEntitySet="Posts">
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
@@ -566,7 +566,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Stores">
-            <EntityTypeMapping TypeName="storesModel.Stores">
+            <EntityTypeMapping TypeName="storesModel.Store">
               <MappingFragment StoreEntitySet="Stores">
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="StoreName" ColumnName="StoreName" />
@@ -581,7 +581,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
-            <EntityTypeMapping TypeName="storesModel.Subjects">
+            <EntityTypeMapping TypeName="storesModel.Subject">
               <MappingFragment StoreEntitySet="Subjects">
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
@@ -613,7 +613,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -7,27 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DALl
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Subjects
+    public partial class Company
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Subjects()
+        public Company()
         {
-            this.Posts = new HashSet<Posts>();
+            this.Advertisements = new HashSet<Advertisement>();
+            this.Clothes = new HashSet<Cloth>();
         }
     
-        public int SubjectID { get; set; }
-        public string SubjectName { get; set; }
-        public Nullable<int> StoreID { get; set; }
-        public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
-        public Nullable<bool> IfWantUpdate { get; set; }
+        public int CompanyID { get; set; }
+        public string CompanyName { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string ContactMan { get; set; }
+        public string ContactManCell { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Posts> Posts { get; set; }
-        public virtual Stores Stores { get; set; }
+        public virtual ICollection<Advertisement> Advertisements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cloth> Clothes { get; set; }
     }
 }

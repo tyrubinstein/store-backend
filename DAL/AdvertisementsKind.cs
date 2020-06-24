@@ -7,30 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DALl
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Clothes
+    public partial class AdvertisementsKind
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clothes()
+        public AdvertisementsKind()
         {
-            this.Stores = new HashSet<Stores>();
+            this.Advertisements = new HashSet<Advertisement>();
         }
     
-        public int ClothID { get; set; }
-        public int ClothCompaniCod { get; set; }
-        public int CompanyId { get; set; }
-        public int YearOfProduction { get; set; }
-        public string Describe { get; set; }
-        public string pictureURL { get; set; }
-        public string Color { get; set; }
+        public int KindID { get; set; }
+        public string KindName { get; set; }
         public Nullable<int> Price { get; set; }
     
-        public virtual Companys Companys { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stores> Stores { get; set; }
+        public virtual ICollection<Advertisement> Advertisements { get; set; }
     }
 }

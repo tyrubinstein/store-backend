@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DALl
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Advertisements
+    public partial class Bill
     {
-        public int AdvertisementID { get; set; }
-        public string pictureURL { get; set; }
-        public Nullable<int> KindID { get; set; }
-        public int CompanyID { get; set; }
-        public string DescribeAd { get; set; }
+        public int BillID { get; set; }
+        public int StoreID { get; set; }
+        public string BillPath { get; set; }
+        public System.DateTime BilDate { get; set; }
     
-        public virtual Companys Companys { get; set; }
-        public virtual AdvertisementsKinds AdvertisementsKinds { get; set; }
+        public virtual Store Store { get; set; }
     }
 }

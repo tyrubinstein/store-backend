@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DALl
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Posts
+    public partial class Post
     {
         public int PostID { get; set; }
         public Nullable<int> StoreID { get; set; }
@@ -21,7 +21,7 @@ namespace DALl
         public string AnswerTo { get; set; }
         public Nullable<int> SubjectID { get; set; }
     
-        public virtual Stores Stores { get; set; }
-        public virtual Subjects Subjects { get; set; }
+        public virtual Store Store { get; set; }
+        public virtual Subject Subject { get; set; }
     }
 }

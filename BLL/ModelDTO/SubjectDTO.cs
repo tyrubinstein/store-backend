@@ -15,6 +15,7 @@ namespace BLL
         public bool? IfWantUpdate { get; set; }
       
     }
+
    public class SubjectForListDTO
     {
         public int SubjectID { get; set; }
