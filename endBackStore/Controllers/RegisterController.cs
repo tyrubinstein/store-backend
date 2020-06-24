@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using static BLL.StoreDTO;
 
 namespace APIendBackStore.Controllers
 {
@@ -14,18 +15,28 @@ namespace APIendBackStore.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RegisterController : ApiController
     {
-       
 
 
-        RegisterService rs = new RegisterService();
+
+        private IRegisterService Irs = new RegisterService();
         [HttpPost]
         [Route("Register/AddStore")]
         public IHttpActionResult AddNewStore(StoreDTO store)
         {
 
-            if (rs.AddStore(store))
+            if (Irs.AddStore(store))
                 return Ok(true);
             return Ok(false);
         }
+        [HttpPost]
+        [Route("Register/IsUser")]
+        public IHttpActionResult IsUserExist(Login login)
+        {
+
+            if (Irs.IsUserExist(login))
+                return Ok(true);
+            return Ok(false);
+        }
+
     }
 }
