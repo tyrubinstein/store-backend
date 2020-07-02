@@ -17,7 +17,7 @@ namespace ASPnetStore.Services
     public class SubjectService : IsubjectService
 
     {
-        storesEntities db;
+        storesEntities1 db;
         
 
 
@@ -26,7 +26,7 @@ namespace ASPnetStore.Services
             try
             {
                 //מחקתי הצהרת משתנה
-                using (db = new storesEntities())
+                using (db = new storesEntities1())
                 {
                     Subject l = db.Subjects.Last();
                     return db.Subjects.

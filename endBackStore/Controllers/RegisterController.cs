@@ -32,10 +32,19 @@ namespace APIendBackStore.Controllers
         [Route("Register/IsUser")]
         public IHttpActionResult IsUserExist(Login login)
         {
-
-            if (Irs.IsUserExist(login))
-                return Ok(true);
-            return Ok(false);
+            string res = Irs.IsUserExist(login);
+            if (res=="true")
+                return Ok(res);
+            if (res == "no user")
+                return Ok(res);
+            else
+                return Ok(res);
+        }
+        [HttpGet]
+        [Route("Register/ResetPassword")]
+        public IHttpActionResult ResetPassword(string email)
+        {
+            return Ok(Irs.ResetPassword(email));
         }
 
     }

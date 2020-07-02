@@ -208,6 +208,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BillsController.cs" />
+    <Compile Include="Controllers\FindClothApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -281,6 +282,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{8F5808AF-64F5-481E-811E-5A260F8C6EAE}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{47A3B441-EC95-4A20-AC30-5F6A8545BAEC}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

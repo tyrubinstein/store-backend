@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,7 @@
     <Compile Include="ModelDTO\SubjectDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BillsService.cs" />
+    <Compile Include="Services\FindCloseService.cs" />
     <Compile Include="Services\ReadDetailsText.cs" />
     <Compile Include="Services\RegisterService.cs" />
     <Compile Include="Services\SubjectService.cs" />

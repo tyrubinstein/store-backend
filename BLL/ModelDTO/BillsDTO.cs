@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,15 @@ namespace BLL.ModelDTO
         public System.DateTime BilDate { get; set; }
 
 
-       
+       public BillsDTO ToDTO(Bill b)
+        {
+            BillsDTO bill = new BillsDTO();
+            bill.BilDate = b.BilDate;
+            bill.BillID = b.BillID;
+            bill.BillPath = b.BillPath;
+            bill.StoreId = b.StoreID;
+            return bill;
+        }
     }
+    
 }

@@ -51,74 +51,72 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Advertisement.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AdvertisementsKind.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Bill.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Cloth.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Company.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBStore.Context.cs">
+    <Compile Include="DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBStore.Context.tt</DependentUpon>
+      <DependentUpon>DBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBStore.cs">
+    <Compile Include="DBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBStore.Designer.cs">
+    <Compile Include="DBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBStore.edmx</DependentUpon>
+      <DependentUpon>DBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Post.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Subject.cs">
-      <DependentUpon>DBStore.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="DBStore.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBStore.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="DBStore.edmx.diagram">
-      <DependentUpon>DBStore.edmx</DependentUpon>
+    <EntityDeploy Include="DBModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DBModel.edmx.diagram">
+      <DependentUpon>DBModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBStore.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DBStore.Context.cs</LastGenOutput>
-      <DependentUpon>DBStore.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBStore.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBStore.edmx</DependentUpon>
-      <LastGenOutput>DBStore.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="DBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+      <LastGenOutput>DBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+      <LastGenOutput>DBModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

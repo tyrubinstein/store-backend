@@ -9,7 +9,7 @@ namespace BLL
 {
     public class StoreDTO
     {
-      //  public int StoreID { get; set; }
+     public int StoreID { get; set; }
         public string StoreName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
@@ -38,6 +38,19 @@ namespace BLL
             store.ManagerName = ManagerName;
 
                    return store;
+        }
+        public StoreDTO ToDTO(Store s)
+        {
+            StoreDTO sDTO = new StoreDTO();
+            sDTO.Address = s.Address;
+            sDTO.Cell = s.Cell;
+            sDTO.cellOftheStore = s.cellOftheStore;
+            sDTO.City = s.City;
+            sDTO.Email = s.Email;
+            sDTO.PasswordUser = s.PasswordUser;
+            sDTO.StoreName = s.StoreName;
+            sDTO.ManagerName = s.ManagerName;
+            return sDTO;
         }
 
     }

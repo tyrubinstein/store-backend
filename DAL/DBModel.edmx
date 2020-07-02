@@ -56,7 +56,7 @@
           <Property Name="ContactMan" Type="varchar" MaxLength="20" />
           <Property Name="ContactManCell" Type="varchar" MaxLength="10" />
         </EntityType>
-        <EntityType Name="Inventory">
+        <EntityType Name="InventoryClothes">
           <Key>
             <PropertyRef Name="StoreID" />
             <PropertyRef Name="ClothID" />
@@ -149,24 +149,24 @@
         </Association>
         <Association Name="FK__Inventory__Cloth__4CA06362">
           <End Role="Clothes" Type="Self.Clothes" Multiplicity="1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <End Role="InventoryClothes" Type="Self.InventoryClothes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clothes">
               <PropertyRef Name="ClothID" />
             </Principal>
-            <Dependent Role="Inventory">
+            <Dependent Role="InventoryClothes">
               <PropertyRef Name="ClothID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Inventory__Store__4BAC3F29">
           <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <End Role="InventoryClothes" Type="Self.InventoryClothes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
               <PropertyRef Name="StoreID" />
             </Principal>
-            <Dependent Role="Inventory">
+            <Dependent Role="InventoryClothes">
               <PropertyRef Name="StoreID" />
             </Dependent>
           </ReferentialConstraint>
@@ -213,7 +213,7 @@
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Companys" EntityType="Self.Companys" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryClothes" EntityType="Self.InventoryClothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
@@ -235,11 +235,11 @@
           </AssociationSet>
           <AssociationSet Name="FK__Inventory__Cloth__4CA06362" Association="Self.FK__Inventory__Cloth__4CA06362">
             <End Role="Clothes" EntitySet="Clothes" />
-            <End Role="Inventory" EntitySet="Inventory" />
+            <End Role="InventoryClothes" EntitySet="InventoryClothes" />
           </AssociationSet>
           <AssociationSet Name="FK__Inventory__Store__4BAC3F29" Association="Self.FK__Inventory__Store__4BAC3F29">
             <End Role="Stores" EntitySet="Stores" />
-            <End Role="Inventory" EntitySet="Inventory" />
+            <End Role="InventoryClothes" EntitySet="InventoryClothes" />
           </AssociationSet>
           <AssociationSet Name="FK__Posts__StoreID__3D5E1FD2" Association="Self.FK__Posts__StoreID__3D5E1FD2">
             <End Role="Stores" EntitySet="Stores" />
@@ -303,7 +303,7 @@
           <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Int32" />
           <NavigationProperty Name="Company" Relationship="Self.FK__Clothes__Company__48CFD27E" FromRole="Clothes" ToRole="Companys" />
-          <NavigationProperty Name="Stores" Relationship="Self.Inventory" FromRole="Clothes" ToRole="Stores" />
+          <NavigationProperty Name="Stores" Relationship="Self.InventoryClothes" FromRole="Clothes" ToRole="Stores" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -347,7 +347,7 @@
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bills__StoreID__4F7CD00D" FromRole="Stores" ToRole="Bills" />
           <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__StoreID__3D5E1FD2" FromRole="Stores" ToRole="Posts" />
           <NavigationProperty Name="Subjects" Relationship="Self.FK__Subjects__StoreI__398D8EEE" FromRole="Stores" ToRole="Subjects" />
-          <NavigationProperty Name="Clothes" Relationship="Self.Inventory" FromRole="Stores" ToRole="Clothes" />
+          <NavigationProperty Name="Clothes" Relationship="Self.InventoryClothes" FromRole="Stores" ToRole="Clothes" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -445,11 +445,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Inventory">
+        <Association Name="InventoryClothes">
           <End Role="Clothes" Type="Self.Cloth" Multiplicity="*" />
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="storesEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="storesEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Advertisements" EntityType="Self.Advertisement" />
           <EntitySet Name="AdvertisementsKinds" EntityType="Self.AdvertisementsKind" />
           <EntitySet Name="Bills" EntityType="Self.Bill" />
@@ -486,7 +486,7 @@
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Subjects" EntitySet="Subjects" />
           </AssociationSet>
-          <AssociationSet Name="Inventory" Association="Self.Inventory">
+          <AssociationSet Name="InventoryClothes" Association="Self.InventoryClothes">
             <End Role="Clothes" EntitySet="Clothes" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
@@ -496,7 +496,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="storesModelStoreContainer" CdmEntityContainer="storesEntities">
+        <EntityContainerMapping StorageEntityContainer="storesModelStoreContainer" CdmEntityContainer="storesEntities1">
           <EntitySetMapping Name="Advertisements">
             <EntityTypeMapping TypeName="storesModel.Advertisement">
               <MappingFragment StoreEntitySet="Advertisements">
@@ -591,7 +591,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Inventory" TypeName="storesModel.Inventory" StoreEntitySet="Inventory">
+          <AssociationSetMapping Name="InventoryClothes" TypeName="storesModel.InventoryClothes" StoreEntitySet="InventoryClothes">
             <EndProperty Name="Clothes">
               <ScalarProperty Name="ClothID" ColumnName="ClothID" />
             </EndProperty>

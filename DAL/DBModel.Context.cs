@@ -13,10 +13,10 @@ namespace DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class storesEntities : DbContext
+    public partial class storesEntities1 : DbContext
     {
-        public storesEntities()
-            : base("name=storesEntities")
+        public storesEntities1()
+            : base("name=storesEntities1")
         {
         }
     
