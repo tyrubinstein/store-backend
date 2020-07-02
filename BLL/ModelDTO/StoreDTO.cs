@@ -9,7 +9,11 @@ namespace BLL
 {
     public class StoreDTO
     {
+<<<<<<< HEAD
      public int StoreID { get; set; }
+=======
+        public int StoreID { get; set; }
+>>>>>>> 460782425c22da6b7115d0778f13555c5cb3b184
         public string StoreName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

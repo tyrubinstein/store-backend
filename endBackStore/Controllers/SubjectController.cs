@@ -16,7 +16,7 @@ namespace APIendBackStore.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SubjectController : ApiController
     {
-        private SubjectService Ics=new SubjectService();
+        private IsubjectService Ics = new SubjectService();
         //public SubjectController()
         //{
         //    Ics = new IsubjectService();
@@ -27,24 +27,34 @@ namespace APIendBackStore.Controllers
         //    this.Ics = ISubjectService;
         //}
         [HttpGet]
-        [Route("Subject/AllSubject")]
-
-        public List<SubjectForListDTO> ListOfSubjects()
+        [Route("Subject/GetListOfAllSubject")]
+        public IHttpActionResult ListOfSubjects()
         {
-
-            return Ics.GetListOfSubjects();
-
+            return Ok(Ics.GetListOfSubjects());
         }
-        public SubjectDTO GetSubjectByID(int ID)
+        [HttpPost]
+        [Route("Subject/AddSubject")]
+        public IHttpActionResult AddSubject(SubjectDTO subject)
         {
-            return Ics.GetSubjectByID(ID);
-                }
+            return Ok(Ics.AddSubject(subject));
+        }
 
-        //public List<SubjectForListDTO> ListOfSubjectsyyy()
-        //{
-        //    return Ics.GetListOfSubjects();
+        [HttpGet]
+        [Route("Subject/GetSubjectByID")]
+        public IHttpActionResult GetSubjectByID(int ID)
+        {
+            return Ok(Ics.GetSubjectByID(ID));
+        }
+        [HttpGet]
+        [Route("Subject/GetIDOfNewestSubject")]
+        public IHttpActionResult GetNewestSubject()
+        {
+            return Ok(Ics.GetIDOfNewestSubject());
+        }
 
-        //}
+
+
+
 
 
     }

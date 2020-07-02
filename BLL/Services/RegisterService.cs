@@ -15,10 +15,14 @@ namespace BLL.Services
     public interface IRegisterService
     {
         bool AddStore(StoreDTO storeDTO);
+<<<<<<< HEAD
         string IsUserExist(Login login);
         bool ResetPassword(string Email);
 
 
+=======
+        bool IsUserExist(Login login);
+>>>>>>> 460782425c22da6b7115d0778f13555c5cb3b184
     }
     public class RegisterService : IRegisterService
     {
