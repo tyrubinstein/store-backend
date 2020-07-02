@@ -25,6 +25,7 @@ namespace DAL
         public Nullable<int> StoreID { get; set; }
         public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
         public Nullable<bool> IfWantUpdate { get; set; }
+        public string Content { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }

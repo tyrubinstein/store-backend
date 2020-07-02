@@ -1,7 +1,9 @@
 ﻿using BLL;
+using BLL.ModelDTO;
 using DAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace ASPnetStore.Services
@@ -10,65 +12,87 @@ namespace ASPnetStore.Services
     public interface IsubjectService
     {
         SubjectDTO GetSubjectByID(int ID);
-        List<SubjectForListDTO> GetListOfSubjects();
+        List<ForListDTO> GetListOfSubjects();
+        int GetIDOfNewestSubject();
+        bool AddSubject(SubjectDTO subjectDTO);
 
     }
 
     public class SubjectService : IsubjectService
-
     {
-        storesEntities db;
-        
+        storesEntities db = new storesEntities();
 
-
-        public List<SubjectForListDTO> GetListOfSubjects()
+        public List<ForListDTO> GetListOfSubjects()
         {
             try
-            {
-                //מחקתי הצהרת משתנה
-                using (db = new storesEntities())
-                {
-                    Subject l = db.Subjects.Last();
-                    return db.Subjects.
-                   Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
-                   (sub, st) => new { sub, st })
-                   .Select(m => new SubjectForListDTO
-                   {
-                       SubjectID = m.sub.SubjectID,
-                       SubjectName = m.sub.SubjectName,
-                       StoreName = m.st.StoreName
-                   }).ToList<SubjectForListDTO>();
-                }
+            {               //מחקתי הצהרת משתנה    
+                            //Subject l = db.Subjects.Last();
+                return db.Subjects.
+               Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
+               (sub, st) => new { sub, st })
+              .OrderBy(s => s.sub.DatetimeOfWriting).Select(m => new ForListDTO
+              {
+                  ID = m.sub.SubjectID,
+                  ImportantText = m.sub.SubjectName,
+                  sideText = m.st.StoreName
+              }).ToList();
             }
             catch (Exception ex)
             {
-                LogException(ex);
-                return null;
+                throw;
             }
+        }
+
+        public int GetIDOfNewestSubject()
+        {
+            return db.Posts.OrderBy(s => s.DatetimeOfWriting).FirstOrDefault().SubjectID;
+            //db.Subjects.OrderBy(s => s.DatetimeOfWriting)
         }
 
         public SubjectDTO GetSubjectByID(int ID)
         {
-            return db.Subjects.
-                Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
-                   (sub, st) => new { sub, st })
-                   .Where(x => x.sub.SubjectID == ID)
+            return db.Subjects
+        .Where(x => x.SubjectID == ID)
                    .Select(x => new SubjectDTO()
-            {
-                SubjectID = x.sub.SubjectID,
-                SubjectName = x.sub.SubjectName,
-                DatetimeOfWriting = x.sub.DatetimeOfWriting,
-                IfWantUpdate = x.sub.IfWantUpdate,
-                StoreName = x.st.StoreName
-               
-            }).FirstOrDefault();
+                   {
+                       SubjectID = x.SubjectID,
+                       SubjectName = x.SubjectName,
+                       DatetimeOfWriting = x.DatetimeOfWriting,
+                       IfWantUpdate = x.IfWantUpdate,
+                       StoreID = x.StoreID,
+                       Content = x.Content
+
+
+                   }).FirstOrDefault();
         }
 
 
-
-        private void LogException(Exception ex)
+        public bool AddSubject(SubjectDTO subjectDTO)
         {
-            throw new NotImplementedException();
+            using (db = new storesEntities())
+            {
+                subjectDTO.DatetimeOfWriting = DateTime.Now;
+                try
+                {
+                    db.Subjects.Add(subjectDTO.FromDTO());
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
+            }
         }
         //public List<SubscriberDTO> GetSubsById(string ID)
         //{
@@ -96,17 +120,18 @@ namespace ASPnetStore.Services
         //}
 
 
-    } }
-    
+    }
+}
 
 
 
 
-    
-     
-      
 
-    
+
+
+
+
+
 
 
 

@@ -9,7 +9,7 @@ namespace BLL
 {
     public class StoreDTO
     {
-      //  public int StoreID { get; set; }
+        public int StoreID { get; set; }
         public string StoreName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

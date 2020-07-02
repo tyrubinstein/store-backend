@@ -12,8 +12,6 @@ namespace BLL.Services
     {
         bool AddStore(StoreDTO storeDTO);
         bool IsUserExist(Login login);
-
-
     }
     public class RegisterService : IRegisterService
     {
