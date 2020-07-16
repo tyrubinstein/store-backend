@@ -1,10 +1,11 @@
-﻿using BLL.ModelDTO;
-using BLL.Services;
+﻿using BLL.Services;
+using DAL;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -15,53 +16,62 @@ namespace endBackStore.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BillsController : ApiController
     {
-       private IBillsService ibs = new BillsService();
+        private IBillsService ibs = new BillsService();
 
-        //[HttpGet]
-        //[Route("Bills/GetAll")]
-        //public List<BillsDTO> getAllBills()
-        //{
-        //    return ibs.GetAllBills();
-            
-        //}
+
         [HttpGet]
         [Route("Bills/GetAll")]
-        public IHttpActionResult getAllBills()
+        public IHttpActionResult getAllBills(int id)
         {
-            return  Ok(ibs.GetAllBills());
+            return Ok(ibs.GetAllBillsById(id));
 
         }
-        
+
         [HttpGet]
         [Route("Bills/DeleteFile")]
-       public IHttpActionResult  DeleteFile (string path)
+        public IHttpActionResult DeleteFile(string path)
         {
             return Ok(ibs.DeleteFile(path));
         }
         [HttpGet]
         [Route("Bills/Search")]
-        public IHttpActionResult SearchRange(DateTime date1,DateTime date2)
+        public IHttpActionResult SearchRange(DateTime date1, DateTime date2)
         {
             return Ok(ibs.SearchBillsInRange(date1, date2));
         }
 
         [HttpPost]
         [Route("Bills/Upload")]
-        public IHttpActionResult UploadImage()
+        public IHttpActionResult Upload()
         {
-            string imageName = null;
             var httpRequest = HttpContext.Current.Request;
-            //Upload Image
-            var postedFile = httpRequest.Files["Image"];
-            //Create custom filename
-            if (postedFile != null)
+            if (httpRequest.Files.Count > 0)
             {
-                imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
-                imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
-                var filePath = HttpContext.Current.Server.MapPath("~/Images/" + imageName);
-                postedFile.SaveAs(filePath);
+                try
+                {
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+                        var filePath = HttpContext.Current.Server.MapPath($"~/App_Data/uploads/{postedFile.FileName}");
+                        postedFile.SaveAs(filePath);
+                       return Ok(ibs.UpLoad(filePath, postedFile.FileName));
+                    }
+
+                }
+                catch (Exception )
+                {
+
+                    throw ;
+                }
+            
             }
-            return Ok();
+
+            return Ok(false);
+
+            
         }
+
+
+       
     }
 }

@@ -28,6 +28,7 @@ namespace BLL
         public Store FromDTO()
         {
             Store store = new Store();
+
             store.Address = Address;
             store.Cell = Cell;
             store.cellOftheStore = cellOftheStore;

@@ -14,7 +14,7 @@ namespace BLL.Services
 {
     public interface IRegisterService
     {
-        bool AddStore(StoreDTO storeDTO);
+        int AddStore(StoreDTO storeDTO);
         string IsUserExist(Login login);
         bool ResetPassword(string Email);
 
@@ -24,20 +24,24 @@ namespace BLL.Services
     {
         private storesEntities1 db;
 
-        public bool AddStore(StoreDTO storeDTO)
+        public int AddStore(StoreDTO storeDTO)
         {
             using (db = new storesEntities1())
             {
                 try
                 {
-                    db.Stores.Add(storeDTO.FromDTO());
-                    db.SaveChanges();
-                    return true;
+                    if (db.Stores.Where(w => w.Email == storeDTO.Email).FirstOrDefault() == null)
+                    {
+                        db.Stores.Add(storeDTO.FromDTO());
+                        db.SaveChanges();
+                        return db.Stores.Where(s => s.Email == storeDTO.Email && s.PasswordUser == storeDTO.PasswordUser).FirstOrDefault().StoreID;
+                    }
+                    return 0;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
 
-                    throw;
+                    throw e;
                 }
             }
         }
@@ -47,12 +51,12 @@ namespace BLL.Services
             {
                 try
                 {
-                    List<Store> ss;
-                    ss = db.Stores.Where(s => s.Email == login.Email).ToList<Store>();
-                    if (ss.Count > 0)
+
+                    Store ss = db.Stores.Where(s => s.Email == login.Email).FirstOrDefault();
+                    if (ss != null)
                     {
-                        if (ss[0].PasswordUser == login.PasswordUser)
-                            return "true";
+                        if (ss.PasswordUser == login.PasswordUser)
+                            return "" + ss.StoreID;
                         else
                             return "no password";
                     }
@@ -72,7 +76,7 @@ namespace BLL.Services
             }
 
         }
-        
+
         public bool ResetPassword(string email)
         {
             //הגרלת מספר חדש
@@ -82,12 +86,12 @@ namespace BLL.Services
             {
                 using (db = new storesEntities1())
                 {
-                    while(db.Stores.Where(ss => ss.PasswordUser == NewPassword).Count()!=0)
-                    { 
-                       
+                    while (db.Stores.Where(ss => ss.PasswordUser == NewPassword).Count() != 0)
+                    {
+
                         NewPassword = Membership.GeneratePassword(6, 1);
                     }
-                   
+
                     var result = db.Stores.SingleOrDefault(b => b.Email == email);
                     if (result != null)
                     {
@@ -104,14 +108,14 @@ namespace BLL.Services
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     client.UseDefaultCredentials = false;
                     client.Credentials = new NetworkCredential(Id, Password);
-                    MailMessage m = new MailMessage(Id, email, "stores מהאתר ", "הסיסמא החדשה: "+NewPassword);
+                    MailMessage m = new MailMessage(Id, email, "stores מהאתר ", "הסיסמא החדשה: " + NewPassword);
                     client.Send(m);
                     return true;
                 }
             }
             catch (Exception e)
             {
-              //  ResetPassword(email);
+                //  ResetPassword(email);
                 throw e;
             }
         }
