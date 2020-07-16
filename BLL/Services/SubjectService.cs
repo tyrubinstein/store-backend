@@ -53,7 +53,7 @@ namespace ASPnetStore.Services
                 Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
                    (sub, st) => new { sub, st })
                    .Where(x => x.sub.SubjectID == ID)
-                   .Select(x => new SubjectDTO()
+                   .Select(x => new SubjectDTO() 
             {
                 SubjectID = x.sub.SubjectID,
                 SubjectName = x.sub.SubjectName,
