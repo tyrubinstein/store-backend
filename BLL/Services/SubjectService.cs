@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿
+using BLL;
 using BLL.ModelDTO;
 using DAL;
 using System;
@@ -20,34 +21,14 @@ namespace ASPnetStore.Services
 
     public class SubjectService : IsubjectService
     {
-<<<<<<< HEAD
         storesEntities1 db;
         
 
-=======
-        storesEntities db = new storesEntities();
->>>>>>> 460782425c22da6b7115d0778f13555c5cb3b184
 
         public List<ForListDTO> GetListOfSubjects()
         {
             try
-<<<<<<< HEAD
-            {
-                //מחקתי הצהרת משתנה
-                using (db = new storesEntities1())
-                {
-                    Subject l = db.Subjects.Last();
-                    return db.Subjects.
-                   Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
-                   (sub, st) => new { sub, st })
-                   .Select(m => new SubjectForListDTO
-                   {
-                       SubjectID = m.sub.SubjectID,
-                       SubjectName = m.sub.SubjectName,
-                       StoreName = m.st.StoreName
-                   }).ToList<SubjectForListDTO>();
-                }
-=======
+
             {               //מחקתי הצהרת משתנה    
                             //Subject l = db.Subjects.Last();
                 return db.Subjects.
@@ -59,9 +40,9 @@ namespace ASPnetStore.Services
                   ImportantText = m.sub.SubjectName,
                   sideText = m.st.StoreName
               }).ToList();
->>>>>>> 460782425c22da6b7115d0778f13555c5cb3b184
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -93,7 +74,7 @@ namespace ASPnetStore.Services
 
         public bool AddSubject(SubjectDTO subjectDTO)
         {
-            using (db = new storesEntities())
+            using (db = new storesEntities1())
             {
                 subjectDTO.DatetimeOfWriting = DateTime.Now;
                 try

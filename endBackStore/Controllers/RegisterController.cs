@@ -23,23 +23,11 @@ namespace APIendBackStore.Controllers
         [Route("Register/AddStore")]
         public IHttpActionResult AddNewStore(StoreDTO store)
         {
-
-            if (Irs.AddStore(store))
-                return Ok(true);
-            return Ok(false);
+                return Ok(Convert.ToInt32(Irs.AddStore(store)));
         }
         [HttpPost]
         [Route("Register/IsUser")]
-        public IHttpActionResult IsUserExist(Login login)
-        {
-            string res = Irs.IsUserExist(login);
-            if (res=="true")
-                return Ok(res);
-            if (res == "no user")
-                return Ok(res);
-            else
-                return Ok(res);
-        }
+        public IHttpActionResult IsUserExist(Login login) => Ok(Irs.IsUserExist(login));
         [HttpGet]
         [Route("Register/ResetPassword")]
         public IHttpActionResult ResetPassword(string email)

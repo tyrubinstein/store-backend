@@ -211,6 +211,7 @@
     <Compile Include="Controllers\FindClothApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\PrivateAreaController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
@@ -264,7 +265,8 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
+    <Folder Include="Images\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>
