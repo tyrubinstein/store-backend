@@ -2,11 +2,7 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
  output extension=".cs"#><#
 
-<<<<<<< HEAD:DAL/DBModel.tt
 const string inputFile = @"DBModel.edmx";
-=======
-const string inputFile = @"DBStoresContex.edmx";
->>>>>>> 460782425c22da6b7115d0778f13555c5cb3b184:DAL/DBStoresContex.tt
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);

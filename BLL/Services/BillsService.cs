@@ -17,12 +17,12 @@ namespace BLL.Services
     }
     public class BillsService : IBillsService
     {
-        private storesEntities1 db;
+        private storesEntities db;
 
 
         public List<BillsDTO> GetAllBillsById(int storeId)
         {
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 try
                 {
@@ -44,7 +44,7 @@ namespace BLL.Services
         }
         public bool DeleteFile(string path)
         {
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 try
                 {
@@ -64,7 +64,7 @@ namespace BLL.Services
         {
             try
             {
-                using (db = new storesEntities1())
+                using (db = new storesEntities())
                 {
                     BillsDTO bdto = new BillsDTO();
                     List<BillsDTO> retList = new List<BillsDTO>();
@@ -84,7 +84,7 @@ namespace BLL.Services
         }
         public List<BillsDTO> UpLoad(string filePath, string fileName)
         {
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 Bill b = new Bill();
                 b.BilDate = DateTime.Now;

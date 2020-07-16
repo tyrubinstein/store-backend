@@ -21,7 +21,7 @@ namespace ASPnetStore.Services
 
     public class SubjectService : IsubjectService
     {
-        storesEntities1 db;
+        storesEntities db;
         
 
 
@@ -74,7 +74,7 @@ namespace ASPnetStore.Services
 
         public bool AddSubject(SubjectDTO subjectDTO)
         {
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 subjectDTO.DatetimeOfWriting = DateTime.Now;
                 try

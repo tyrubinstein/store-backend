@@ -15,11 +15,11 @@ namespace BLL.Services
     public class PrivateAreaService : IPrivateArea
     {
         StoreDTO st = new StoreDTO();
-        private storesEntities1 db;
+        private storesEntities db;
         public StoreDTO GetUserById(int id)
         {
 
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 return st.ToDTO(db.Stores.Where(s => s.StoreID == id).FirstOrDefault());
             }
@@ -29,7 +29,7 @@ namespace BLL.Services
         {
             try
             {
-                using (db = new storesEntities1())
+                using (db = new storesEntities())
                 {
                     //  Store sst = db.Stores.Where(ss => ss.StoreID == store.StoreID).FirstOrDefault();
                     var result = db.Stores.SingleOrDefault(b => b.StoreID == store.StoreID);

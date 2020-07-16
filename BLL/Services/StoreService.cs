@@ -18,8 +18,8 @@ namespace ASPnetStore.Services
     }
 
     public class StoreService : IStoreService
-    { 
-        storesEntities db= new storesEntities();
+    {
+        storesEntities db;
         public string GetStoreNameById(int ID)
         {
             return "familyLand";

@@ -17,20 +17,20 @@ namespace DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cloth()
         {
-            this.Stores = new HashSet<Store>();
+            this.Inventories = new HashSet<Inventory>();
         }
     
         public int ClothID { get; set; }
         public int ClothCompaniCod { get; set; }
         public int CompanyId { get; set; }
-        public int YearOfProduction { get; set; }
         public string Describe { get; set; }
         public string pictureURL { get; set; }
         public string Color { get; set; }
         public Nullable<int> Price { get; set; }
+        public string SizesRange { get; set; }
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="ModelDTO\BillsDTO.cs" />
     <Compile Include="ModelDTO\ClothDTO.cs" />
     <Compile Include="ModelDTO\CompanyDTO.cs" />
+    <Compile Include="ModelDTO\ForListDTO.cs" />
     <Compile Include="ModelDTO\InventoryDTO.cs" />
     <Compile Include="ModelDTO\PostDTO.cs" />
     <Compile Include="ModelDTO\StoreDTO.cs" />
@@ -57,9 +58,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BillsService.cs" />
     <Compile Include="Services\FindCloseService.cs" />
+    <Compile Include="Services\PostService.cs" />
     <Compile Include="Services\PrivateAreaService.cs" />
     <Compile Include="Services\ReadDetailsText.cs" />
     <Compile Include="Services\RegisterService.cs" />
+    <Compile Include="Services\StoreService.cs" />
     <Compile Include="Services\SubjectService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +78,8 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

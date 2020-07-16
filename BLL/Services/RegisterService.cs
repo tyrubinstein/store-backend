@@ -22,16 +22,17 @@ namespace BLL.Services
     }
     public class RegisterService : IRegisterService
     {
-        private storesEntities1 db;
+        private storesEntities db;
 
         public int AddStore(StoreDTO storeDTO)
         {
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 try
                 {
                     if (db.Stores.Where(w => w.Email == storeDTO.Email).FirstOrDefault() == null)
                     {
+
                         db.Stores.Add(storeDTO.FromDTO());
                         db.SaveChanges();
                         return db.Stores.Where(s => s.Email == storeDTO.Email && s.PasswordUser == storeDTO.PasswordUser).FirstOrDefault().StoreID;
@@ -47,7 +48,7 @@ namespace BLL.Services
         }
         public string IsUserExist(Login login)//אם יש כזה משתמש
         {
-            using (db = new storesEntities1())
+            using (db = new storesEntities())
             {
                 try
                 {
@@ -84,7 +85,7 @@ namespace BLL.Services
 
             try
             {
-                using (db = new storesEntities1())
+                using (db = new storesEntities())
                 {
                     while (db.Stores.Where(ss => ss.PasswordUser == NewPassword).Count() != 0)
                     {

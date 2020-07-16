@@ -14,13 +14,13 @@ namespace BLL.Services
     }
    public class FindCloseService: IFindClothApplicationService
     {
-        private storesEntities1 db;
+        private storesEntities db;
         public List<StoreDTO> Find(SearcClothDTO search)
         {
             StoreDTO SDTO=new StoreDTO();
             try
             {
-                //using (db = new storesEntities1())
+                //using (db = new storesEntities())
                 //{
                 //    int ComId = db.Companys.Where(com => com.CompanyName == search.CompanyName).First().CompanyID;//קוד החברה
                 //                                                                                                  //קוד הבגד הרצוי

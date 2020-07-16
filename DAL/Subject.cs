@@ -23,9 +23,10 @@ namespace DAL
         public int SubjectID { get; set; }
         public string SubjectName { get; set; }
         public Nullable<int> StoreID { get; set; }
+        public string Content { get; set; }
         public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
         public Nullable<bool> IfWantUpdate { get; set; }
-        public string Content { get; set; }
+        public Nullable<System.DateTime> GotLastAnswer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }

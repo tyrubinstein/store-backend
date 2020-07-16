@@ -17,10 +17,11 @@ namespace ASPnetStore.Services
 
     public class PostService : IPostService
     {
-        storesEntities db= new storesEntities();
+        storesEntities db;
 
         public List<PostDTO> GetListOfPostByIdSubject(int idOfSubject)
         {
+            using(db=new storesEntities())
             try
             {               //מחקתי הצהרת משתנה    
                             //Subject l = db.Subjects.Last();

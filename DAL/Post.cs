@@ -18,9 +18,9 @@ namespace DAL
         public Nullable<int> StoreID { get; set; }
         public string ContentText { get; set; }
         public Nullable<System.DateTime> DatetimeOfWriting { get; set; }
-        public int SubjectID { get; set; }
         public Nullable<int> numOfVotes { get; set; }
         public Nullable<bool> IfWantUpdate { get; set; }
+        public int SubjectID { get; set; }
     
         public virtual Store Store { get; set; }
         public virtual Subject Subject { get; set; }
