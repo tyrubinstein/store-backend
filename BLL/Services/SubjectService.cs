@@ -1,6 +1,5 @@
 ﻿
 using BLL;
-using BLL.ModelDTO;
 using DAL;
 using System;
 using System.Collections.Generic;
@@ -16,61 +15,104 @@ namespace ASPnetStore.Services
         List<ForListDTO> GetListOfSubjects();
         int GetIDOfNewestSubject();
         bool AddSubject(SubjectDTO subjectDTO);
+        DateTime GetlatestDateOfPostBySubjectId(int subjectId);
 
     }
 
     public class SubjectService : IsubjectService
     {
         storesEntities db;
-        
+
 
 
         public List<ForListDTO> GetListOfSubjects()
         {
-            try
-
-            {               //מחקתי הצהרת משתנה    
-                            //Subject l = db.Subjects.Last();
-                return db.Subjects.
-               Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
-               (sub, st) => new { sub, st })
-              .OrderBy(s => s.sub.DatetimeOfWriting).Select(m => new ForListDTO
-              {
-                  ID = m.sub.SubjectID,
-                  ImportantText = m.sub.SubjectName,
-                  sideText = m.st.StoreName
-              }).ToList();
-
-            }
-            catch (Exception)
+            using (db = new storesEntities())
             {
-                throw;
+                try
+
+                {               //מחקתי הצהרת משתנה    
+                                //Subject l = db.Subjects.Last();
+                    return db.Subjects.
+                   Join(db.Stores, sub => sub.StoreID, st => st.StoreID,
+                   (sub, st) => new { sub, st })
+                  .OrderBy(s => s.sub.DatetimeOfWriting).Select(m => new ForListDTO
+                  {
+                      ID = m.sub.SubjectID,
+                      ImportantText = m.sub.SubjectName,
+                      sideText = m.st.StoreName
+                  }).ToList();
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
         public int GetIDOfNewestSubject()
         {
-            return db.Posts.OrderBy(s => s.DatetimeOfWriting).FirstOrDefault().SubjectID;
-            //db.Subjects.OrderBy(s => s.DatetimeOfWriting)
+            using (db = new storesEntities())
+            {
+                try
+                {
+                    return db.Posts.OrderByDescending(s => s.DatetimeOfWriting).FirstOrDefault().SubjectID;
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+        public DateTime GetlatestDateOfPostBySubjectId(int subjectId)
+        {
+            using (db = new storesEntities())
+            {
+
+
+                try
+                {
+                    return (DateTime)db.Posts.Where(x => x.SubjectID == subjectId).OrderByDescending(s => s.DatetimeOfWriting).FirstOrDefault().DatetimeOfWriting;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
         }
 
         public SubjectDTO GetSubjectByID(int ID)
         {
-            return db.Subjects
-        .Where(x => x.SubjectID == ID)
-                   .Select(x => new SubjectDTO()
-                   {
-                       SubjectID = x.SubjectID,
-                       SubjectName = x.SubjectName,
-                       DatetimeOfWriting = x.DatetimeOfWriting,
-                       IfWantUpdate = x.IfWantUpdate,
-                       StoreID = x.StoreID,
-                       Content = x.Content
+            using (db = new storesEntities())
+            {
+                try
+                {
+                    return db.Subjects
+              .Where(x => x.SubjectID == ID)
+                         .Select(x => new SubjectDTO()
+                         {
+                             SubjectID = x.SubjectID,
+                             SubjectName = x.SubjectName,
+                             DatetimeOfWriting = x.DatetimeOfWriting,
+                             IfWantUpdate = x.IfWantUpdate,
+                             StoreID = x.StoreID,
+                             Content = x.Content
 
 
-                   }).FirstOrDefault();
+                         }).FirstOrDefault();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+            }
         }
-
 
         public bool AddSubject(SubjectDTO subjectDTO)
         {
@@ -127,13 +169,6 @@ namespace ASPnetStore.Services
 
     }
 }
-
-
-
-
-
-
-
 
 
 

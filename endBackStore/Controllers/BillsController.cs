@@ -17,7 +17,9 @@ namespace endBackStore.Controllers
     public class BillsController : ApiController
     {
         private IBillsService ibs = new BillsService();
-
+        [HttpGet]
+        [Route("Bills/GetInventoryById")]
+        public IHttpActionResult GetInventoryById(int id) => Ok(ibs.GetInventoryById(id));
 
         [HttpGet]
         [Route("Bills/GetAll")]

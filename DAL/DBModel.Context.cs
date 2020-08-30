@@ -30,9 +30,10 @@ namespace DAL
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Cloth> Clothes { get; set; }
         public virtual DbSet<Company> Companys { get; set; }
-        public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
     }
 }

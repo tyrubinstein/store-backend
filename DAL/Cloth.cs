@@ -28,6 +28,7 @@ namespace DAL
         public string Color { get; set; }
         public Nullable<int> Price { get; set; }
         public string SizesRange { get; set; }
+        public Nullable<int> YearOfProduction { get; set; }
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

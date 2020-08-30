@@ -51,6 +51,12 @@ namespace APIendBackStore.Controllers
         {
             return Ok(Ics.GetIDOfNewestSubject());
         }
+        [HttpGet]
+        [Route("Subject/GetlatestDateOfPostBySubjectId")]
+        public IHttpActionResult GetlatestDateOfPostBySubjectId(int subjectId)
+        {
+            return Ok(Ics.GetlatestDateOfPostBySubjectId(subjectId));
+        }
 
 
 

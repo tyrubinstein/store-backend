@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="storesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="storesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Advertisements">
           <Key>
             <PropertyRef Name="AdvertisementID" />
@@ -22,6 +22,15 @@
           <Property Name="KindID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KindName" Type="varchar" MaxLength="20" />
           <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sideText" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImportantText" Type="varchar" MaxLength="50" />
+          <Property Name="ArticlesPath" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Bills">
           <Key>
@@ -44,6 +53,7 @@
           <Property Name="Color" Type="varchar" MaxLength="20" />
           <Property Name="Price" Type="int" />
           <Property Name="SizesRange" Type="varchar" MaxLength="12" />
+          <Property Name="YearOfProduction" Type="int" />
         </EntityType>
         <EntityType Name="Companys">
           <Key>
@@ -76,6 +86,7 @@
           <Property Name="numOfVotes" Type="int" />
           <Property Name="IfWantUpdate" Type="bit" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="600" Nullable="false" />
         </EntityType>
         <EntityType Name="Stores">
           <Key>
@@ -214,6 +225,7 @@
         <EntityContainer Name="storesModelStoreContainer">
           <EntitySet Name="Advertisements" EntityType="Self.Advertisements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdvertisementsKinds" EntityType="Self.AdvertisementsKinds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clothes" EntityType="Self.Clothes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Companys" EntityType="Self.Companys" Schema="dbo" store:Type="Tables" />
@@ -258,8 +270,7 @@
             <End Role="Subjects" EntitySet="Subjects" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -307,7 +318,8 @@
           <Property Name="Price" Type="Int32" />
           <Property Name="SizesRange" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Company" Relationship="Self.FK__Clothes__Company__49C3F6B7" FromRole="Clothes" ToRole="Companys" />
-          <NavigationProperty Name="Inventories" Relationship="Self.FK__Inventory__Cloth__4D94879B" FromRole="Clothes" ToRole="Inventory" />
+          <NavigationProperty Name="Inventories" Relationship="storesModel.FK__Inventory__Cloth__4D94879B" FromRole="Cloth" ToRole="Inventory" />
+          <Property Name="YearOfProduction" Type="Int32" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -322,17 +334,6 @@
           <NavigationProperty Name="Advertisements" Relationship="Self.FK__Advertise__Compa__46E78A0C" FromRole="Companys" ToRole="Advertisements" />
           <NavigationProperty Name="Clothes" Relationship="Self.FK__Clothes__Company__49C3F6B7" FromRole="Companys" ToRole="Clothes" />
         </EntityType>
-        <EntityType Name="Inventory">
-          <Key>
-            <PropertyRef Name="StoreID" />
-            <PropertyRef Name="ClothID" />
-          </Key>
-          <Property Name="StoreID" Type="Int32" Nullable="false" />
-          <Property Name="ClothID" Type="Int32" Nullable="false" />
-          <Property Name="YearOfProduction" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cloth" Relationship="Self.FK__Inventory__Cloth__4D94879B" FromRole="Inventory" ToRole="Clothes" />
-          <NavigationProperty Name="Store" Relationship="Self.FK__Inventory__Store__4CA06362" FromRole="Inventory" ToRole="Stores" />
-        </EntityType>
         <EntityType Name="Post">
           <Key>
             <PropertyRef Name="PostID" />
@@ -346,6 +347,7 @@
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Store" Relationship="Self.FK__Posts__StoreID__3D5E1FD2" FromRole="Posts" ToRole="Stores" />
           <NavigationProperty Name="Subject" Relationship="Self.FK__Posts__SubjectID__3F466844" FromRole="Posts" ToRole="Subjects" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="600" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -361,9 +363,9 @@
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PasswordUser" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bills__StoreID__5070F446" FromRole="Stores" ToRole="Bills" />
-          <NavigationProperty Name="Inventories" Relationship="Self.FK__Inventory__Store__4CA06362" FromRole="Stores" ToRole="Inventory" />
           <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__StoreID__3D5E1FD2" FromRole="Stores" ToRole="Posts" />
           <NavigationProperty Name="Subjects" Relationship="Self.FK__Subjects__StoreI__398D8EEE" FromRole="Stores" ToRole="Subjects" />
+          <NavigationProperty Name="Inventories" Relationship="storesModel.FK__Inventory__Store__4CA06362" FromRole="Store" ToRole="Inventory" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -427,30 +429,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Inventory__Cloth__4D94879B">
-          <End Role="Clothes" Type="Self.Cloth" Multiplicity="1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clothes">
-              <PropertyRef Name="ClothID" />
-            </Principal>
-            <Dependent Role="Inventory">
-              <PropertyRef Name="ClothID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Inventory__Store__4CA06362">
-          <End Role="Stores" Type="Self.Store" Multiplicity="1" />
-          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stores">
-              <PropertyRef Name="StoreID" />
-            </Principal>
-            <Dependent Role="Inventory">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Posts__StoreID__3D5E1FD2">
           <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
           <End Role="Posts" Type="Self.Post" Multiplicity="*" />
@@ -493,7 +471,6 @@
           <EntitySet Name="Bills" EntityType="Self.Bill" />
           <EntitySet Name="Clothes" EntityType="Self.Cloth" />
           <EntitySet Name="Companys" EntityType="Self.Company" />
-          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="Subjects" EntityType="Self.Subject" />
@@ -513,14 +490,6 @@
             <End Role="Companys" EntitySet="Companys" />
             <End Role="Clothes" EntitySet="Clothes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Inventory__Cloth__4D94879B" Association="Self.FK__Inventory__Cloth__4D94879B">
-            <End Role="Clothes" EntitySet="Clothes" />
-            <End Role="Inventory" EntitySet="Inventories" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Inventory__Store__4CA06362" Association="Self.FK__Inventory__Store__4CA06362">
-            <End Role="Stores" EntitySet="Stores" />
-            <End Role="Inventory" EntitySet="Inventories" />
-          </AssociationSet>
           <AssociationSet Name="FK__Posts__StoreID__3D5E1FD2" Association="Self.FK__Posts__StoreID__3D5E1FD2">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Posts" EntitySet="Posts" />
@@ -533,7 +502,61 @@
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Subjects" EntitySet="Subjects" />
           </AssociationSet>
+          <EntitySet Name="Articles" EntityType="storesModel.Article" />
+          <EntitySet Name="Inventories" EntityType="storesModel.Inventory" />
+          <AssociationSet Name="FK__Inventory__Cloth__4D94879B" Association="storesModel.FK__Inventory__Cloth__4D94879B">
+            <End Role="Cloth" EntitySet="Clothes" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventory__Store__4CA06362" Association="storesModel.FK__Inventory__Store__4CA06362">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ImportantText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sideText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArticlesPath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="StoreID" />
+            <PropertyRef Name="ClothID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="ClothID" Type="Int32" Nullable="false" />
+          <Property Name="YearOfProduction" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cloth" Relationship="storesModel.FK__Inventory__Cloth__4D94879B" FromRole="Inventory" ToRole="Cloth" />
+          <NavigationProperty Name="Store" Relationship="storesModel.FK__Inventory__Store__4CA06362" FromRole="Inventory" ToRole="Store" />
+        </EntityType>
+        <Association Name="FK__Inventory__Cloth__4D94879B">
+          <End Type="storesModel.Cloth" Role="Cloth" Multiplicity="1" />
+          <End Type="storesModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cloth">
+              <PropertyRef Name="ClothID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ClothID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventory__Store__4CA06362">
+          <End Type="storesModel.Store" Role="Store" Multiplicity="1" />
+          <End Type="storesModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -573,6 +596,7 @@
           <EntitySetMapping Name="Clothes">
             <EntityTypeMapping TypeName="storesModel.Cloth">
               <MappingFragment StoreEntitySet="Clothes">
+                <ScalarProperty Name="YearOfProduction" ColumnName="YearOfProduction" />
                 <ScalarProperty Name="ClothID" ColumnName="ClothID" />
                 <ScalarProperty Name="ClothCompaniCod" ColumnName="ClothCompaniCod" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
@@ -596,18 +620,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Inventories">
-            <EntityTypeMapping TypeName="storesModel.Inventory">
-              <MappingFragment StoreEntitySet="Inventory">
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="ClothID" ColumnName="ClothID" />
-                <ScalarProperty Name="YearOfProduction" ColumnName="YearOfProduction" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="storesModel.Post">
               <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="ContentText" ColumnName="ContentText" />
@@ -643,6 +659,25 @@
                 <ScalarProperty Name="DatetimeOfWriting" ColumnName="DatetimeOfWriting" />
                 <ScalarProperty Name="IfWantUpdate" ColumnName="IfWantUpdate" />
                 <ScalarProperty Name="GotLastAnswer" ColumnName="GotLastAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="storesModel.Article">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="ArticlesPath" ColumnName="ArticlesPath" />
+                <ScalarProperty Name="sideText" ColumnName="sideText" />
+                <ScalarProperty Name="ImportantText" ColumnName="ImportantText" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="storesModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="YearOfProduction" ColumnName="YearOfProduction" />
+                <ScalarProperty Name="ClothID" ColumnName="ClothID" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

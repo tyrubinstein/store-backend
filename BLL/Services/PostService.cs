@@ -12,6 +12,7 @@ namespace ASPnetStore.Services
     {
         List<PostDTO> GetListOfPostByIdSubject(int idOfSubject);
         bool AddPost(PostDTO postDTO);
+        void changevotes(int PostID, int updateNumOfVotes);
 
     }
 
@@ -21,25 +22,26 @@ namespace ASPnetStore.Services
 
         public List<PostDTO> GetListOfPostByIdSubject(int idOfSubject)
         {
-            using(db=new storesEntities())
-            try
-            {               //מחקתי הצהרת משתנה    
-                            //Subject l = db.Subjects.Last();
-                return db.Posts.
-                  Where(p => p.SubjectID == idOfSubject)
-               .Select(p => new PostDTO
-               {
-                   PostID = p.PostID,
-                   StoreID = p.StoreID,
-                   ContentText = p.ContentText,
-                   DatetimeOfWriting = p.DatetimeOfWriting
-               }).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogException(ex);
-                return null;
-            }
+            using (db = new storesEntities())
+                try
+                {               //מחקתי הצהרת משתנה    
+                                //Subject l = db.Subjects.Last();
+                    return db.Posts.
+                      Where(p => p.SubjectID == idOfSubject)
+                   .Select(p => new PostDTO
+                   {
+                       PostID = p.PostID,
+                       StoreID = p.StoreID,
+                       ContentText = p.ContentText,
+                       DatetimeOfWriting = p.DatetimeOfWriting,
+                       Title = p.Title
+                   }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    LogException(ex);
+                    return null;
+                }
         }
         public bool AddPost(PostDTO postDTO)
         {
@@ -57,6 +59,13 @@ namespace ASPnetStore.Services
                     throw e;
                 }
             }
+        }
+        public void changevotes(int PostID, int updateNumOfVotes)
+        {
+            Post _myItem = db.Posts.Where(x => x.PostID == PostID).SingleOrDefault();
+            var typ = typeof(Post);
+            typ.GetProperties().ToList().ForEach(m => m.SetValue(_myItem, updateNumOfVotes, null));
+            db.SaveChanges();
         }
 
 
@@ -95,6 +104,7 @@ namespace ASPnetStore.Services
 
 
 
+
         //public List<SubscriberDTO> GetSubsById(string ID)
         //{
         //    return db.subscriber_tbl.Where(s => s.cust_id == ID).Select(s => new SubscriberDTO()
@@ -121,17 +131,18 @@ namespace ASPnetStore.Services
         //}
 
 
-    } }
-    
+    }
+}
 
 
 
 
-    
-     
-      
 
-    
+
+
+
+
+
 
 
 

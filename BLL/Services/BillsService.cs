@@ -10,14 +10,47 @@ namespace BLL.Services
 {
     public interface IBillsService
     {
+        List<ClothDTO> GetInventoryById(int id);
         List<BillsDTO> GetAllBillsById(int storeId);
         bool DeleteFile(string path);
         List<BillsDTO> SearchBillsInRange(DateTime d1, DateTime d2);
         List<BillsDTO> UpLoad(string filePath, string fileName);
     }
+
     public class BillsService : IBillsService
     {
         private storesEntities db;
+        public  List<ClothDTO> GetInventoryById(int id)
+        {
+            InventoryService InventoryService = new InventoryService();
+            List<ClothDTO> retval = default;
+
+            try
+            {
+                using (db = new storesEntities())
+                {
+                    var list = db.Inventories.Where(inv => inv.StoreID == id).Select(i => i.ClothID).ToList();
+                    if (list != null)
+                    {
+                        retval = new List<ClothDTO>();
+                        List<Cloth> listcloth = db.Clothes.Where(c => list.Contains(c.ClothID)).Select(cloth => cloth).ToList<Cloth>();
+                        foreach (var item in listcloth)
+                        {
+                            ClothDTO c = new ClothDTO();
+                            c = c.ToDTO(item);
+                            c.CompanyName = InventoryService.GetCompanyNameById(c.CompanyId);
+                            retval.Add(c);
+                        }
+                       
+                    } return retval;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
 
 
         public List<BillsDTO> GetAllBillsById(int storeId)
