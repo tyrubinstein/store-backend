@@ -1,5 +1,6 @@
 ﻿using BLL.Services;
 using DAL;
+using FactoryToFrameWork;
 using System;
 using System.IO;
 using System.Linq;
@@ -16,16 +17,24 @@ namespace endBackStore.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class BillsController : ApiController
     {
-        private IBillsService ibs = new BillsService();
+        private IBillsService _ibs;
+        private Resolver Resolver; 
+        public BillsController()
+        {
+            //    var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dlls");
+            //    Resolver = new Resolver(path);
+            //    _ibs = Resolver.ResolveMany<IBillsService>().FirstOrDefault();
+            _ibs = new BillsService();
+        }
         [HttpGet]
         [Route("Bills/GetInventoryById")]
-        public IHttpActionResult GetInventoryById(int id) => Ok(ibs.GetInventoryById(id));
+        public IHttpActionResult GetInventoryById(int id) => Ok(_ibs.GetInventoryById(id));
 
         [HttpGet]
         [Route("Bills/GetAll")]
         public IHttpActionResult getAllBills(int id)
         {
-            return Ok(ibs.GetAllBillsById(id));
+            return Ok(_ibs.GetAllBillsById(id));
 
         }
 
@@ -33,13 +42,13 @@ namespace endBackStore.Controllers
         [Route("Bills/DeleteFile")]
         public IHttpActionResult DeleteFile(string path)
         {
-            return Ok(ibs.DeleteFile(path));
+            return Ok(_ibs.DeleteFile(path));
         }
         [HttpGet]
         [Route("Bills/Search")]
         public IHttpActionResult SearchRange(DateTime date1, DateTime date2)
         {
-            return Ok(ibs.SearchBillsInRange(date1, date2));
+            return Ok(_ibs.SearchBillsInRange(date1, date2));
         }
 
         [HttpPost]
@@ -56,7 +65,7 @@ namespace endBackStore.Controllers
                         var postedFile = httpRequest.Files[file];
                         var filePath = HttpContext.Current.Server.MapPath($"~/App_Data/uploads/{postedFile.FileName}");
                         postedFile.SaveAs(filePath);
-                       return Ok(ibs.UpLoad(filePath, postedFile.FileName));
+                       return Ok(_ibs.UpLoad(filePath, postedFile.FileName));
                     }
 
                 }

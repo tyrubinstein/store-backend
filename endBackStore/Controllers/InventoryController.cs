@@ -14,11 +14,16 @@ namespace endBackStore.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class InventoryController : ApiController
     {
-        private IInventoryService _IIS = new InventoryService();
+        private IInventoryService _IIS;
+        public InventoryController()
+        {
+            _IIS = new InventoryService();
+        }
+
         [HttpGet]
         [Route("Inventory/GetInventory")]
         public IHttpActionResult GetInventory() => Ok(_IIS.GetInventory());
-        
+
         [HttpPost]
         [Route("Inventory/SaveClothes")]
         public IHttpActionResult SaveClothes(List<List<InventoryDTO>> data) => Ok(_IIS.SaveClothes(data));

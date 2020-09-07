@@ -15,11 +15,20 @@ namespace endBackStore.Controllers
     public class FindClothApplicationController : ApiController
     {
         IFindClothApplicationService IFCA;
-        [HttpGet]
-        [Route("FindCloth/Find")]
-        public IHttpActionResult Find(SearcClothDTO ClothDetails)
+        public FindClothApplicationController()
         {
-            return Ok(IFCA.Find(ClothDetails));
+            IFCA = new FindClothService();
+        }
+        [HttpGet]
+        public string helo()
+        {
+            return "helo";
+        }
+        [HttpPost]
+        [Route("FindClothApplication/FindStores")]
+        public IHttpActionResult FindStores([FromBody]SearcClothDTO ClothDetails)
+        {
+            return Ok(IFCA.FindStores(ClothDetails));
         }
     }
 }

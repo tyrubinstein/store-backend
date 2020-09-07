@@ -1,5 +1,6 @@
 ﻿using BLL.ModelDTO;
 using DAL;
+using ResolverContracts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BLL.Services
         List<BillsDTO> SearchBillsInRange(DateTime d1, DateTime d2);
         List<BillsDTO> UpLoad(string filePath, string fileName);
     }
-
+    [Register(Policy.Transient,typeof(IBillsService))]
     public class BillsService : IBillsService
     {
         private storesEntities db;

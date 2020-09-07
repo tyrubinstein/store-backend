@@ -42,7 +42,7 @@ namespace BLL
         public string Describe { get; set; }
         public string Color { get; set; }
         public string CompanyName { get; set; }
-        public int ClothId { get; set; }
+        public int ClothCompaniCod { get; set; }
         public string Size { get; set; }
     }
 }

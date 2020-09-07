@@ -40,6 +40,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ResolverContracts">
+      <HintPath>..\..\FactoryToFrameWork\ResolverContracts\bin\Debug\ResolverContracts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -66,7 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArticlesService.cs" />
     <Compile Include="Services\BillsService.cs" />
-    <Compile Include="Services\FindCloseService.cs" />
+    <Compile Include="Services\FindClothService.cs" />
     <Compile Include="Services\InventoryService.cs" />
     <Compile Include="Services\PostService.cs" />
     <Compile Include="Services\PrivateAreaService.cs" />
